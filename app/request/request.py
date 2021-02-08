@@ -3,8 +3,7 @@ import json
 
 
 class Request():
-    key = "qUaEdLNRaiAmBty5+Ey0O+yj7Si9jVpos0SuI7qejkdKxZVdMGhhB/L+DD/VhLtA"
-    key_sandbox = r"+hfCR9theomaP/3rSLLGcqsM00EMx5DjlRClI5Xwnb3cnG30jBwxl/bnCcbRoItV"
+    key_sandbox = r"JMmdQzyIsb1looU+tjjlvJdtjXlE++XGyPh/r74p8rEmG02VOHDeSlcMUMRHjxuL"
 
     def __init__(self):
 

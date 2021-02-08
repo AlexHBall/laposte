@@ -1,4 +1,9 @@
+import datetime
+
+from sqlalchemy.orm import relationship
+
 from app import db
+from app.models.history import History
 
 
 class Letter(db.Model):
@@ -7,6 +12,7 @@ class Letter(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tracking_number = db.Column(db.String(256))
     status = db.Column(db.String(191))
+    children = relationship("History")
 
     priority = {'DR1': 1,
                 'PC1': 2,
@@ -35,11 +41,17 @@ class Letter(db.Model):
     def add(self):
         db.session.add(self)
         db.session.commit()
+        history = History(letter_id=self.id, status=self.status,
+                          time=datetime.datetime.now())
+        history.add()
 
     def update_status(self, status):
         self.status = status
 
     def update(self):
+        history = History(letter_id=self.id, status=self.status,
+                          time=datetime.datetime.now())
+        history.add()
         db.session.update(self)
         db.session.commit()
 
