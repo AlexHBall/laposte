@@ -3,12 +3,17 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+import redis
+from rq import Queue
 
 from app.config import config
 from app.request.request import Request
 
 db = SQLAlchemy()
 request_handler = Request()
+redis = redis.Redis()
+queue = Queue(connection=redis)
+
 
 def create_app():
     app = Flask(__name__)
@@ -17,8 +22,6 @@ def create_app():
 
     config_name = os.getenv("FLASK_CONFIG") or "default"
     app.config.from_object(config[config_name])
-
-
 
     from . import models
     from .v1 import v1 as v1_blueprint

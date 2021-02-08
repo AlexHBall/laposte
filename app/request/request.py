@@ -22,3 +22,12 @@ class Request():
             return rsp
         except json.decoder.JSONDecodeError:
             return None
+
+    def get_latest_event_code(self,response):
+        if response:
+            try:
+                if response['returnCode'] == HTTP_OK:
+                    latest_event_code = response['shipment']['event'][-1]['code']
+                    return latest_event_code if latest_event_code else None
+            except KeyError:
+                return None
