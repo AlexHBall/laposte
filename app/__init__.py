@@ -18,10 +18,10 @@ def create_app():
     config_name = os.getenv("FLASK_CONFIG") or "default"
     app.config.from_object(config[config_name])
 
-    db.init_app(app)
-    
+
+
     from . import models
     from .v1 import v1 as v1_blueprint
-
+    db.init_app(app)
     app.register_blueprint(v1_blueprint, url_prefix="/v1")
     return app
