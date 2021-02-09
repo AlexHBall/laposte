@@ -11,8 +11,13 @@ v1 = Blueprint("v1", __name__)
 CORS(v1)
 
 LA_POSTE_ERROR_MSG = "Error Interacting with LaPoste API"
+LETTER_ADDED_MSG = "Letter added"
+LETTER_UPDATED_MSG = "Letter Status Updated"
+INVALID_TRACKING_MSG = "Invalid tracking number format"
+LETTER_CONFLICT_MSG = "This letter is already up to date"
 HTTP_OK = 200
 HTTP_NOT_FOUND = 404
+HTTP_INVALID_INPUT = 422
 HTTP_CONFLICT = 409
 HTTP_SEVER_ERROR = 502
 
@@ -26,21 +31,23 @@ def update_all_letters():
 def get_letter_info(tracking_number):
     if Letter.tracking_number_is_valid(tracking_number):
         response = request_handler.get_letter_details(tracking_number)
-        latest_event_code = request_handler.get_latest_event_code(response)
-        if latest_event_code:
-            letter = Letter.query.filter_by(
-                tracking_number=tracking_number).first()
-            if not letter:
-                letter = Letter(tracking_number=tracking_number,
-                                status=latest_event_code)
-                letter.add()
-                msg = "Letter added"
-            else:
-                if letter.current_status_outdated(latest_event_code):
-                    letter.update_status(latest_event_code)
-                    letter.update()
-                    msg = "Letter Status Updated"
-                return "Letter Status Already Up To Date", HTTP_CONFLICT
-            return msg, HTTP_OK
+        if response:
+            latest_event_code = request_handler.get_latest_event_code(response)
+            if latest_event_code:
+                letter = Letter.query.filter_by(
+                    tracking_number=tracking_number).first()
+                if not letter:
+                    letter = Letter(tracking_number=tracking_number,
+                                    status=latest_event_code)
+                    letter.add()
+                    msg = LETTER_ADDED_MSG
+                else:
+                    if letter.current_status_outdated(latest_event_code):
+                        letter.update_status(latest_event_code)
+                        letter.update()
+                        msg = LETTER_UPDATED_MSG
+                    else:
+                        return LETTER_CONFLICT_MSG, HTTP_CONFLICT
+                return msg, HTTP_OK
         return LA_POSTE_ERROR_MSG, HTTP_SEVER_ERROR
-    return "Invalid tracking number format", 422
+    return INVALID_TRACKING_MSG, HTTP_INVALID_INPUT

@@ -3,18 +3,16 @@ import json
 
 
 class Request():
-
+    key = r"7NoU4nqjV5ndr+pVDYf8EZaTZgCG85QZbWb71Evjwl0wJKeqplIdXM/QAf+ssSXg"
     def __init__(self):
-        self.key = r"jOPLSbA8fThnlEVU6J8U/HJ4jY20kfBEGuyBvEgQ65MeXyeAB9by8cucJZizrVJ6"
         self.http = urllib3.PoolManager()
-
 
     def get_letter_details(self, tracking_number):
         # Identifiant de l'objet recherché de 11 à 15 caractères alphanumériques
         r = self.http.request('GET', f'https://api.laposte.fr/suivi/v2/idships/{tracking_number}',
                               headers={
                                   'Accept': 'application/json',
-                                  'X-Okapi-Key': self.key,
+                                  'X-Okapi-Key': r"dBb/NahoRmC+bnXZIQf+XPpxXXjMeuHhgft9U6o2ZFefwyo/+CgU8FuWnFMFFlsi",
                               }
                               )
         try:
@@ -26,11 +24,8 @@ class Request():
     def get_latest_event_code(self,response):
         if response:
             try:
-                if response['returnCode'] == HTTP_OK:
+                if response['returnCode'] == 200:
                     latest_event_code = response['shipment']['event'][-1]['code']
                     return latest_event_code if latest_event_code else None
             except KeyError:
                 return None
-
-    def set_request_key(self,key):
-        self.key = key

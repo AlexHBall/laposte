@@ -1,4 +1,5 @@
 from app import request_handler
+from app.request.request import Request
 
 def process_letters_task(letters):
     if letters:
