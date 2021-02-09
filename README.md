@@ -1,5 +1,16 @@
 # Technical test
 
+
+#### To run
+
+- run redis default port
+- activate virutal env 
+- $ pip install 
+- $ rq worker  
+(in root)
+- $ flask run 
+(in root)
+
 #### What I would like to do with more time
 
 - Explore setting and getting the la poste api key
