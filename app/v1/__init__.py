@@ -11,10 +11,6 @@ v1 = Blueprint("v1", __name__)
 CORS(v1)
 
 LA_POSTE_ERROR_MSG = "Error Interacting with LaPoste API"
-LETTER_ADDED_MSG = "Letter added"
-LETTER_UPDATED_MSG = "Letter Status Updated"
-INVALID_TRACKING_MSG = "Invalid tracking number format"
-LETTER_CONFLICT_MSG = "This letter is already up to date"
 HTTP_OK = 200
 HTTP_NOT_FOUND = 404
 HTTP_INVALID_INPUT = 422
@@ -40,14 +36,14 @@ def get_letter_info(tracking_number):
                     letter = Letter(tracking_number=tracking_number,
                                     status=latest_event_code)
                     letter.add()
-                    msg = LETTER_ADDED_MSG
+                    msg = f"Letter {tracking_number} added to DB"
                 else:
                     if letter.current_status_outdated(latest_event_code):
                         letter.update_status(latest_event_code)
                         letter.update()
-                        msg = LETTER_UPDATED_MSG
+                        msg = f"Letter {tracking_number} Status Updated {latest_event_code}"
                     else:
-                        return LETTER_CONFLICT_MSG, HTTP_CONFLICT
+                        return f"Letter {tracking_number} is already up to date", HTTP_CONFLICT
                 return msg, HTTP_OK
         return LA_POSTE_ERROR_MSG, HTTP_SEVER_ERROR
     return INVALID_TRACKING_MSG, HTTP_INVALID_INPUT
