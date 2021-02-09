@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    image: laposte
+    ports:
+      - 5000:5000
+
+  worker:
+    image: laposte
+    depends_on:
+      - redis
+    command: rqworker --name worker --url redis://redis:6379/0
+
+  redis:
+    image: redis:alpine

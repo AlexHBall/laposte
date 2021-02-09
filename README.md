@@ -1,5 +1,14 @@
 # Technical test
 
+#### What I would like to do with more time
+
+- Explore setting and getting the la poste api key
+- Encrypt the la poste api key properly 
+- Look at celery and rabbitmq for the get all letter task 
+- Find a way to buffer the query all from sql alchemy in case of millions of results 
+- Post to AWS (not doing this because of the laposte sandbox key which needs updating often)
+- Look at more testing in Flask and PyTest, previously I've only used unittest
+
 #### Setup
 
 - Install python 3.7 & pipenv
@@ -16,12 +25,10 @@ Database is running on SQLite, it can be browsed using "DB Browser for SQLite" f
 
 #### Expected work
 
-1. Connect to La Poste API (https://developer.laposte.fr/)
-2. Create an endpoint that fetch the status of a given letter on the La Poste API, and update it in the database
-3. Create an endpoint that fetch the status of all letters on the La Poste API, and update it in the database
-4. Make previous endpoint respond instantly, and launch an asynchronous task that update all the status
-
-There is no need to do a front interface, you can just share a Postman collection to test it.
+1. Connect to La Poste API (https://developer.laposte.fr/) DONE
+2. Create an endpoint that fetch the status of a given letter on the La Poste API, and update it in the database DONE
+3. Create an endpoint that fetch the status of all letters on the La Poste API, and update it in the database DONE
+4. Make previous endpoint respond instantly, and launch an asynchronous task that update all the status DONE
 
 #### Bonus
 
