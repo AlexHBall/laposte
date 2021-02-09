@@ -3,7 +3,7 @@
 
 #### To run
 
-- run redis default port
+- run redis default port (6379)
 - activate virutal env 
 - $ pip install 
 - $ rq worker  
