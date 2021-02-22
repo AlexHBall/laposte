@@ -2,7 +2,7 @@
 
 
 #### To run
-- install redis
+- install redis redis-server /usr/local/etc/redis.conf
 - run redis default port (6379)
 - activate virutal env 
 - $ pip install 
@@ -12,7 +12,7 @@
 (in root)
 
 #### To do
-
+- Change from laposte api to weather api
 - Parse the letter ID using flask pre processing of endpoint input (look in tech with tim video and remove static method)
 - Make the task properly asynchronous
 - Look at celery and rabbitmq for the get all letters task 
