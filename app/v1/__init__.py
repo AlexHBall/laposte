@@ -47,7 +47,3 @@ def get_letter_info(tracking_number):
                 return msg, HTTP_OK
         return LA_POSTE_ERROR_MSG, HTTP_SEVER_ERROR
     return INVALID_TRACKING_MSG, HTTP_INVALID_INPUT
-
-@v1.route('/city/<string:city_name>', methods=['POST'])
-def get_by_city(city_name):
-    return request_handler.get_weather_city_name(city_name)
