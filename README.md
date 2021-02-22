@@ -2,7 +2,7 @@
 
 
 #### To run
-
+- install redis
 - run redis default port (6379)
 - activate virutal env 
 - $ pip install 
