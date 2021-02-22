@@ -11,10 +11,9 @@
 - $ flask run 
 (in root)
 
-#### What I would like to do with more time
+#### To do
 
-- Explore setting and getting the la poste api key (put it in the .env)
-- Parse the letter ID using flask pre processing
+- Parse the letter ID using flask pre processing of endpoint input (look in tech with tim video and remove static method)
 - Make the task properly asynchronous
 - Look at celery and rabbitmq for the get all letters task 
 - Find a way to buffer the query all from sql alchemy in case of millions of results 

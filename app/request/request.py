@@ -5,13 +5,12 @@ from os import environ
 
 
 class Request():
-    key = r"7NoU4nqjV5ndr+pVDYf8EZaTZgCG85QZbWb71Evjwl0wJKeqplIdXM/QAf+ssSXg"
     def __init__(self):
+        self.key = environ.get('WEATHER_API_KEY')
+        self.url = environ.get('WEATHR_API_ADRESS')
         self.http = urllib3.PoolManager()
 
     def get_letter_details(self, tracking_number):
-        print(environ.get('LA_POSTE_API_KEY'))
-        # Identifiant de l'objet recherché de 11 à 15 caractères alphanumériques
         r = self.http.request('GET', f'https://api.laposte.fr/suivi/v2/idships/{tracking_number}',
                               headers={
                                   'Accept': 'application/json',
@@ -20,6 +19,16 @@ class Request():
                               )
         try:
             rsp = json.loads(r.data.decode('utf-8'))
+            return rsp
+        except json.decoder.JSONDecodeError:
+            return None
+
+    def get_weather_city_name(self, city_name):
+        r = self.http.request('GET', f'{self.url}?q={city_name}&appid={self.key}',
+                              )
+        try:
+            rsp = json.loads(r.data.decode('utf-8'))
+            print(rsp)
             return rsp
         except json.decoder.JSONDecodeError:
             return None
