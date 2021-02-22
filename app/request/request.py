@@ -1,5 +1,7 @@
 import urllib3
 import json
+from os import environ
+
 
 
 class Request():
@@ -8,11 +10,12 @@ class Request():
         self.http = urllib3.PoolManager()
 
     def get_letter_details(self, tracking_number):
+        print(environ.get('LA_POSTE_API_KEY'))
         # Identifiant de l'objet recherché de 11 à 15 caractères alphanumériques
         r = self.http.request('GET', f'https://api.laposte.fr/suivi/v2/idships/{tracking_number}',
                               headers={
                                   'Accept': 'application/json',
-                                  'X-Okapi-Key': r"dBb/NahoRmC+bnXZIQf+XPpxXXjMeuHhgft9U6o2ZFefwyo/+CgU8FuWnFMFFlsi",
+                                  'X-Okapi-Key': environ.get('LA_POSTE_API_KEY'),
                               }
                               )
         try:
