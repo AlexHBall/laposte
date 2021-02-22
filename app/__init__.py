@@ -24,9 +24,7 @@ def create_app():
     app.config.from_object(config[config_name])
 
     from . import models
-    from .v1 import v1 as v1_blueprint
     from .weather import weather as weather_blueprint
     db.init_app(app)
-    app.register_blueprint(v1_blueprint, url_prefix="/v1")
     app.register_blueprint(weather_blueprint, url_prefix="/weather")
     return app
