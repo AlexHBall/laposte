@@ -2,6 +2,7 @@ import urllib3
 import json
 from os import environ
 
+from app.request.response import Response
 
 
 class Request():
@@ -14,7 +15,8 @@ class Request():
         r = self.http.request('GET', f'{self.url}?q={city_name}&appid={self.key}',
                               )
         try:
-            rsp = json.loads(r.data.decode('utf-8'))
-            return rsp
+            data = json.loads(r.data.decode('utf-8'))
+            return Response(response_json=data)
+            
         except json.decoder.JSONDecodeError:
             return None

@@ -4,7 +4,7 @@ class History(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     letter_id = db.Column(db.Integer, db.ForeignKey('letter.id'))
-    status = db.Column(db.String(191))
+    weather = db.Column(db.String(191))
     time = db.Column(db.DateTime())
 
     def __repr__(self):

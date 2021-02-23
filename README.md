@@ -19,5 +19,6 @@
 - Look at sqlalchemy flush and find a way to reduce the number of db commits
 - Find some way to mock for intergration tests
 - Find some way to e2e
+- Add user and find ways to save favourite cities
 - Get the docker compose working, there is a Redis connection error but the letter/id route works fine or use rabitmq
 - Create a front-end to show letter, letters
